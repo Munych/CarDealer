@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
@@ -10,5 +10,9 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
-    public virtual DbSet<Cars> Cars { get; set; }
+    public DbSet<Car> Cars { get; set; }
+    public DbSet<Buyer> Buyers { get; set; }
+    public DbSet<Sale> Sales { get; set; }
+    public DbSet<Staff> Staff { get; set; }
+    public DbSet<Manufacturer> Manufacturers { get; set; }
 }
