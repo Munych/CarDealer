@@ -1,13 +1,12 @@
 @model WebApplication1.Models.Manufacturer
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Просмотр";
 }
 
-<h1>Details</h1>
+<h1>Сведения о производителе</h1>
 
 <div>
-    <h4>Manufacturer</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -25,6 +24,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ManufacturerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ManufacturerId">Редактировать</a> |
+    <a asp-action="Index">Вернуться к списку производителей</a>
 </div>

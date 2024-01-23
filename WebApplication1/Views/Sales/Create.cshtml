@@ -1,12 +1,10 @@
 @model WebApplication1.Models.Sale
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Новая продажа";
 }
 
-<h1>Create</h1>
-
-<h4>Sale</h4>
+<h1>Новая продажа</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -35,13 +33,13 @@
                 <span asp-validation-for="Cost" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Создать" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Вернуться к списку продаж</a>
 </div>
 

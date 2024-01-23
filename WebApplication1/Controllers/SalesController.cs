@@ -50,9 +50,9 @@ namespace WebApplication1.Controllers
         // GET: Sales/Create
         public IActionResult Create()
         {
-            ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "BuyerId");
-            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId");
-            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "StaffId");
+            ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "FullName");
+            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "ShortInfo");
+            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "FullName");
             return View();
         }
 
@@ -69,9 +69,9 @@ namespace WebApplication1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "BuyerId", sale.BuyerId);
-            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId", sale.CarId);
-            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "StaffId", sale.StaffId);
+            ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "FullName", sale.BuyerId);
+            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "ShortInfo", sale.CarId);
+            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "FullName", sale.StaffId);
             return View(sale);
         }
 
@@ -88,9 +88,9 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
-            ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "BuyerId", sale.BuyerId);
-            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId", sale.CarId);
-            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "StaffId", sale.StaffId);
+            ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "FullName", sale.BuyerId);
+            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "ShortInfo", sale.CarId);
+            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "FullName", sale.StaffId);
             return View(sale);
         }
 
@@ -126,9 +126,9 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "BuyerId", sale.BuyerId);
-            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "CarId", sale.CarId);
-            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "StaffId", sale.StaffId);
+            ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "FullName", sale.BuyerId);
+            ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "ShortInfo", sale.CarId);
+            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "FullName", sale.StaffId);
             return View(sale);
         }
 
