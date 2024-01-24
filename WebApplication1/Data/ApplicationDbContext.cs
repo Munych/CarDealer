@@ -10,9 +10,21 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
+
     public DbSet<Car> Cars { get; set; }
     public DbSet<Buyer> Buyers { get; set; }
     public DbSet<Sale> Sales { get; set; }
     public DbSet<Staff> Staff { get; set; }
     public DbSet<Manufacturer> Manufacturers { get; set; }
+    
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+    //     modelBuilder.Entity<Car>().HasData(
+    //         new User[] 
+    //         {
+    //             new User { Id=1, Name="Tom", Age=23},
+    //             new User { Id=2, Name="Alice", Age=26},
+    //             new User { Id=3, Name="Sam", Age=28}
+    //         });
+    // }
 }
