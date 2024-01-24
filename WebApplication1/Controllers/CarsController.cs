@@ -20,9 +20,19 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Cars
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var applicationDbContext = _context.Cars.Include(c => c.Manufacturer);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var applicationDbContext = _context.Cars.Where(t => t.ManufacturerId == id).Include(c => c.Manufacturer);
+
+            string Manufacturer = _context.Manufacturers.FirstOrDefault(t => t.ManufacturerId == id).Name;
+
+            ViewBag.Manufacturer = Manufacturer;
+            ViewBag.ManufacturerId = id;
+            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -42,13 +52,20 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
+            ViewBag.ManufacturerId = car.ManufacturerId;
+
             return View(car);
         }
 
         // GET: Cars/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "Name");
+            if (id == null)
+            {
+                return NotFound();
+            }
+            // ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "Name");
+            ViewData["ManufacturerId"] = id;
             return View();
         }
 
@@ -63,9 +80,10 @@ namespace WebApplication1.Controllers
             {
                 _context.Add(car);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new {id = car.ManufacturerId});
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "Name", car.ManufacturerId);
+            // ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "Name", car.ManufacturerId);
+            ViewData["ManufacturerId"] = car.ManufacturerId;
             return View(car);
         }
 
@@ -82,7 +100,8 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "Name", car.ManufacturerId);
+            // ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "Name", car.ManufacturerId);
+            ViewData["ManufacturerId"] = car.ManufacturerId;
             return View(car);
         }
 
@@ -116,9 +135,10 @@ namespace WebApplication1.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new {id = car.ManufacturerId});
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "Name", car.ManufacturerId);
+            // ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "ManufacturerId", "Name", car.ManufacturerId);
+            ViewData["ManufacturerId"] = car.ManufacturerId;
             return View(car);
         }
 
@@ -138,6 +158,8 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
+            ViewBag.ManufacturerId = car.ManufacturerId;
+
             return View(car);
         }
 
@@ -147,13 +169,14 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var car = await _context.Cars.FindAsync(id);
+            int ManufacturerId = car.ManufacturerId;
             if (car != null)
             {
                 _context.Cars.Remove(car);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {id = ManufacturerId});
         }
 
         private bool CarExists(int id)

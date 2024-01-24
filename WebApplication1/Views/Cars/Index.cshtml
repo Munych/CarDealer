@@ -7,7 +7,12 @@
 <h1>Автомобили</h1>
 
 <p>
-    <a asp-action="Create">Внести данные по новому автомобилю</a>
+    Производитель - @ViewBag.Manufacturer
+</p>
+
+<p>
+    <a asp-controller="Manufacturers" asp-action="Index">Возврат к списку производителей</a>
+    <a asp-action="Create" asp-route-id="@ViewBag.ManufacturerId">Внести данные по новому автомобилю</a>
 </p>
 <table class="table">
     <thead>

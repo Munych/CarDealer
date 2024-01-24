@@ -18,7 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Address)
             </th>
-            <th></th>
+            <th>
+                Количество автомобилей
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +33,10 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
+                @item.Cars.Count
+            </td>
+            <td>
+                <a asp-controller="Cars" asp-action="Index" asp-route-id="@item.ManufacturerId">Автомобили</a> |
                 <a asp-action="Edit" asp-route-id="@item.ManufacturerId">Редактировать</a> |
                 <a asp-action="Details" asp-route-id="@item.ManufacturerId">Просмотр</a> |
                 <a asp-action="Delete" asp-route-id="@item.ManufacturerId">Удалить</a>

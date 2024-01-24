@@ -18,7 +18,7 @@ public class Car
     public string Brand { get; set; }
     
     [Required(ErrorMessage = "Укажите модель автомобиля")]
-    [StringLength(30, MinimumLength = 2, ErrorMessage = "Длина строки должна быть от 2 до 30 символом")]
+    [StringLength(30, MinimumLength = 1, ErrorMessage = "Длина строки должна быть от 2 до 30 символом")]
     [Display(Name = "Модель")]
     public string Model { get; set; }
     
@@ -28,7 +28,7 @@ public class Car
     public string Color { get; set; }
     
     [Required(ErrorMessage = "Укажите VIN автомобиля")]
-    [RegularExpression("^[A-HJ-NPR-Za-hj-npr-z\\d]{8}[\\dX][A-HJ-NPR-Za-hj-npr-z\\d]{2}\\d{6}$", ErrorMessage = "Некорректный формат VIN номера")]
+    [RegularExpression("[A-HJ-NPR-Z0-9]{17}", ErrorMessage = "Некорректный формат VIN номера")]
     public string VIN { get; set; }
     
     [Required(ErrorMessage = "Укажите ПТС автомобиля")]

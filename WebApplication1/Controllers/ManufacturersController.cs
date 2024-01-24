@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
         // GET: Manufacturers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Manufacturers.ToListAsync());
+            return View(await _context.Manufacturers.Include(t => t.Cars).ToListAsync());
         }
 
         // GET: Manufacturers/Details/5
