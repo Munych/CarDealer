@@ -4,10 +4,11 @@
     ViewData["Title"] = "Продажи";
 }
 
-<h1>Продажи</h1>
+<h1>Продажи - @ViewBag.Staff</h1>
 
 <p>
-    <a asp-action="Create">Внести данные по новой продаже</a>
+    <a asp-controller="Staff" asp-action="Index">Возврат к списку сотрудников</a>
+    <a asp-action="Create" asp-route-id="@ViewBag.StaffId">Внести данные по новой продаже</a>
 </p>
 <table class="table">
     <thead>

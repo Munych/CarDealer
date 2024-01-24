@@ -20,9 +20,20 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Sales
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var applicationDbContext = _context.Sales.Include(s => s.Buyer).Include(s => s.Car).Include(s => s.Staff);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            
+            var applicationDbContext = _context.Sales.Where(t => t.StaffId == id).Include(s => s.Buyer).Include(s => s.Car).Include(s => s.Staff);
+            
+            string staff = _context.Staff.FirstOrDefault(t => t.StaffId == id).FullName;
+
+            ViewBag.Staff = staff;
+            ViewBag.StaffId = id;
+            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -48,11 +59,17 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Sales/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["StaffId"] = id;
+            
             ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "FullName");
             ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "ShortInfo");
-            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "FullName");
             return View();
         }
 
@@ -67,11 +84,13 @@ namespace WebApplication1.Controllers
             {
                 _context.Add(sale);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = sale.StaffId });
             }
             ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "FullName", sale.BuyerId);
             ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "ShortInfo", sale.CarId);
-            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "FullName", sale.StaffId);
+
+            ViewData["StaffId"] = sale.StaffId;
+                
             return View(sale);
         }
 
@@ -124,11 +143,13 @@ namespace WebApplication1.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = sale.StaffId });
             }
             ViewData["BuyerId"] = new SelectList(_context.Buyers, "BuyerId", "FullName", sale.BuyerId);
             ViewData["CarId"] = new SelectList(_context.Cars, "CarId", "ShortInfo", sale.CarId);
-            ViewData["StaffId"] = new SelectList(_context.Staff, "StaffId", "FullName", sale.StaffId);
+            
+            ViewData["StaffId"] = sale.StaffId;
+            
             return View(sale);
         }
 
@@ -159,13 +180,14 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var sale = await _context.Sales.FindAsync(id);
+            int staffId = sale.StaffId;
             if (sale != null)
             {
                 _context.Sales.Remove(sale);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = staffId });
         }
 
         private bool SaleExists(int id)

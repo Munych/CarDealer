@@ -43,6 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
+                <a asp-controller="Sales" asp-action="Index" asp-route-id="@item.StaffId">Продажи</a> |
                 <a asp-action="Edit" asp-route-id="@item.StaffId">Редактировать</a> |
                 <a asp-action="Details" asp-route-id="@item.StaffId">Просмотр</a> |
                 <a asp-action="Delete" asp-route-id="@item.StaffId">Удалить</a>
